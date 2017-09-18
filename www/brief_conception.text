@@ -1,0 +1,71 @@
+Brief:
+
+ site internet "readers community"
+- readerscommunity est un site d'échange de livres d'occasion entre particulier.
+- chaque utilisateur en s'inscrivant au site web peut :
+  1/ ajouter des livres qu'il possède en remplisant un formulaire d'information sur les livres qu'il souhaite proposer (le titre, l'auteur,  catégorie...).
+chaque utilisateur posséde sur sa page client la liste de ses livres disponibles à l'échange.
+  2/ consulter les pages du site et découvre les livres qui sont disponible à l'échange. (Les livres seront classés par catégories, avec photo. Chaque utilisateur peut accéder à un résumé du livre).
+  3/ commander des livres ,
+   4/ donner son avis sur les livres lus.
+
+Conception:
+1. Création de la base de donnees
+La base de données est : readerdb
+2 tables:
+    1) table user: 4 colonnes (id, int PK AI), (name, varchar(50)),  (email, varchar(50)), (password, varchar(50))
+    2) table book: 8 colonnes (id, int PK AI), (title, varchar(50)),(author, varchar(50)), ((category, varchar(50)),  (summry, text),  (comment, text), (image, text) et (owner, varchar(50))
+
+    9 pages web
+
+    - home_page.php : presentation du site (avec le bootsraps dans le header) avec 2 liens (un formulaire de connexion ou un formulaire d'inscription)
+    - connexion.php: formulaire de connexion avec 2 champs (email, password)
+    - inscription.php: formulaire d'inscription 3 champs (name, email, password)
+    - process.php :  analyse des variables de type post
+    - book_list.php: affichage de la liste des livres en liens cliquables qui mènent vers le detail du livre séléctioné
+    avec un lien vers une page admin et un lien deconnexion (en session avec un message de connexion)
+    - book.php: affiche le titre, le resume, l'auteur, commentaire. cette page permet aussi de soit commander le livre soit laisser un commentaire
+    - admin.php : page privée avec le message . cette page permet de ajouter, mise à jour ou supprimer un livre
+    - logout.php : message de déconnexion
+
+    Poo
+    class user
+    methode constructeur pour se connecter à la base
+    attribut private mysqli pour contenir la variable de connexion à la base
+
+    une méthode verify_user qui établit une requete SELECT pour obtenir les informaitons user depuis la base de données.
+    Si c'est vide, alors user non reconnu
+
+    une méthode add_user qui établit une requete INSERT (formulaire) les Informations user vers la base de données.
+    Si c'est vide, alors user non ajouter
+
+    une méthode redirect vers home_page.php ou vers admin.php
+
+    une méthode logout...
+
+    Class Book
+
+    methode constructeur pour se connecter à la base
+    attribut private mysqli pour contenir la variable de connexion à la base
+
+    une méthode read_book qui établit une requete SELECT dans la base de données.
+
+    une méthode add_book qui établit une requete INSERT dans la base de données.
+
+    une méthode update_book qui établit une requete UPDATE dans la base de données.
+
+    une méthode delete_book qui établit une requete DELETE dans la base de données.
+
+process
+
+2. affichage des articles
+2.1 liste des articles
+PHP se connecte à MYSQL avec la fonction mysqli().
+la requete SQL SELECT est effectuée
+les articles sont affichés au moyen d'une boucle while
+ils contiennent le name et le slug pour créer le lien quia ffichera le contneu
+dans la même page.
+2.2 suppression des artciles
+un lien apres le nom de l'article contient le id de l'article et permet d'accéder à la page delete.php.
+Dans cette page un GET recupere le id. Cette variable est ensuite utilsiée pour la clause WHERE de la requete
+de suppression.

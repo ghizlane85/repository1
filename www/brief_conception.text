@@ -20,7 +20,7 @@ La base de données est : readerdb
 
     - home_page.php : presentation du site (avec le bootsraps dans le header) avec 2 liens (un formulaire de connexion ou un formulaire d'inscription)
     - connexion.php: formulaire de connexion avec 2 champs (email, password)
-    - inscription.php: formulaire d'inscription 3 champs (name, email, password)
+    - inscription.php: formulaire d'inscription 3 champs (name, email, password) permet de creer un utilisteur dans la base de donnèes
     - process.php :  analyse des variables de type post
     - book_list.php: affichage de la liste des livres en liens cliquables qui mènent vers le detail du livre séléctioné
     avec un lien vers une page admin et un lien deconnexion (en session avec un message de connexion)

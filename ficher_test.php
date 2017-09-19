@@ -63,7 +63,7 @@ Class User // déclaration de la classe en fonction du nom de la table de la DB
     *
     * @param none
     * @return array || FALSE
-    */
+    */ /*creer un compte utilisateur*/
     public function add_user($name,$email, $password) // déclaration de la méthode
     {
         // on utilise l'atribut $mysqli pour récupérer la connexion à la base de données

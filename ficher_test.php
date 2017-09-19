@@ -12,7 +12,7 @@ Class User // déclaration de la classe en fonction du nom de la table de la DB
     */
     public function __construct()
     {
-        $this->mysqli = new mysqli('localhost', 'root', '', 'readersdb');
+        $this->mysqli = new mysqli('home', 'root', '', 'readersdb');
         $this->mysqli->query("SET NAMES 'utf8'");
     }
 

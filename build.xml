@@ -1,0 +1,109 @@
+<project name="demoant" default="help" basedir=".">
+
+
+<!-- ===================== Definitions de propriétés =========================== -->
+
+    <!--
+         Toutes les propriétés ANT (répertoire src, build, deploy...) devraient être déclarées dans cette section.    -->
+
+  <property name="app.home"          value="." />
+  <property name="app.name"          value="monappli" />
+
+  <property name="src.home"          value="${app.home}/src"/>
+  <property name="object.home"       value="${app.home}/object"/>
+  <property name="deploy.home"       value="${app.home}/deploy"/>
+  <property name="doc.home"          value="${app.home}/doc"/>
+
+<!-- ==================== Chemin de Compilation (Classpath) =========================== -->
+
+    <!--
+         Cette section crée le classpath pour la compilation.
+    -->
+
+  <path id="compile.classpath">
+
+    <!-- les fichiers objects de l'application -->
+    <pathelement location="${object.home}"/>
+
+  </path>
+
+
+<!-- ==================== Cibles de compilation ICI ========================= -->
+
+
+<!-- ==================== "help" Target =================================== -->
+
+    <!--
+         Cible part défaut. Exécutée si aucune cible n'est précisée.
+	 Cela aide l'utilisateur à mettre en oeuvre les fonctionalité juste en tapant
+   'ant' suivi d'une cible au choix, sans avoir à réaliser une cibe
+   par défaut non voulue par l'utilisateur...
+    -->
+
+ <target name="help" >
+   <echo message="SVP precisez une cible! [utilisation: ant &lt;cible&gt;]" />
+   <echo message="Voici la liste des cibles possibles: "/>
+   <echo message="  clean-all.....Supprime repertoire de compilation, les fichiers .class et fichiers war"/>
+   <echo message="  prepare.......Cree les repertoire necessaires" />
+   <echo message="  compile.......Compile fichiers source" />
+ </target>
+
+<!-- ==================== "clean-all" Target ============================== -->
+
+    <!--
+          Cette cible néttoie toute trace de l'application de façon à permettre nouvelle compilation
+              -->
+
+ <target name="clean-all" >
+    <delete dir="${object.home}"/>
+    <delete dir="${deploy.home}"/>
+
+    <!-- delete the javadoc -->
+    <delete dir="${doc.home}"/>
+
+ </target>
+
+<!-- ==================== "prepare" Target ================================ -->
+
+    <!--
+          Cette cible est exécutée avant les autres
+	  pour être sur que les répertoires necessaires existent. Il les crée si besoin....
+    -->
+
+  <target name="prepare">
+
+
+    <mkdir  dir="${object.home}"/>
+    <mkdir  dir="${deploy.home}"/>
+
+    <mkdir  dir="${doc.home}"/>
+    <mkdir  dir="${doc.home}/api"/>
+
+  </target>
+
+<!-- ==================== "compile" Target ================================ -->
+
+    <!--
+		Cette cible compile uniquement les fichiers java plus récents que leur correspondant .class
+     -->
+
+  <target name="compile" depends="prepare"  >
+    <javac srcdir="${src.home}" destdir="${object.home}"  debug="yes" >
+        <classpath refid="compile.classpath"/>
+    </javac>
+  </target>
+
+  <!-- ==================== "run" Target ================================ -->
+
+
+    <target name="run" depends="compile">
+
+      <java classname="com.objis.monapplication.HelloObjis">
+        <classpath>
+          <pathelement location="object"/>
+        </classpath>
+        </java>
+      </target>
+
+
+</project>
